@@ -1,0 +1,1 @@
+Here all documentation ralest files we should need to keep, like report, diagrams, papers used for reference, etc

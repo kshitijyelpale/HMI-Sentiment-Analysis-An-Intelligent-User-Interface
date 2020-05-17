@@ -1,0 +1,7 @@
+https://keras.io/examples/imdb_lstm/
+https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21
+https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural-networks-python-keras/
+https://medium.com/@GeneAshis/nlp-sentiment-analysis-on-imdb-movie-dataset-fb0c4d346d23
+
+https://thedatafrog.com/en/articles/word-embedding-sentiment-analysis/
