@@ -1,0 +1,31 @@
+MOM_05-06-2020
+
+HMI Project
+Tasks
+Application (Frontend + Backend + DB)
+Frontend - TextArea + button + buttons to generate and delete new textArea
+Database APIs : Store, fetch etc
+
+Table1
+1 shubham LSTM Bayes
+
+Table2
+1         	R1 actual LSTM Bayes 
+			R2
+			R3
+			R4
+			R5
+			R6 
+			
+Models: LSTM, BAYES
+Data Preprocessing
+
+Dataset: If (newByTomm) then New else IMDB
+
+Statistical Test
+
+Safir: LSTM, Latex
+Gaurav: Latex, Frontend
+Pranay: DB, Bayes
+Kshitij: UI + Backend
+Shubham: backend APIs + DB conn
