@@ -1,5 +1,5 @@
 Keras==2.3.1
-nltk==3.4
+nltk==3.4.5
 streamlit
 
 
