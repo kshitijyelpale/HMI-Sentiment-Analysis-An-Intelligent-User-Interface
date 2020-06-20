@@ -10,13 +10,16 @@ import os
 import re
 import sys
 import nltk
-nltk.download('stopwords')
-from nltk.corpus import stopwords
 from keras.preprocessing.text import one_hot
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential, model_from_json
 from keras.layers import Dense, Embedding
 from keras.layers import LSTM
+try:
+    from nltk.corpus import stopwords
+except:
+    nltk.download('stopwords')
+    from nltk.corpus import stopwords
 
 
 #define class
