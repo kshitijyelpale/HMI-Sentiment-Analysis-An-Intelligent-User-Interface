@@ -36,21 +36,33 @@ class LSTMModel:
         print("Importing Dataset... Please wait!")
         
         #Import testing data in x_test
-        for filename in os.listdir("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Test\\Negative\\"):
-            with open(os.path.join("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Test\\Negative\\", filename), 'r', encoding="utf8") as f:
+        
+        datasetPath = "../DataSet/"
+        
+        testDataPath = datasetPath + "Test/"
+        posTestDataPath = testDataPath + "Positive"
+        negTestDatapath = testDataPath + "Negative"
+        
+        trainDataPath = datasetPath + "Train/"
+        posTrainDataPath = trainDataPath + "Positive"
+        negTrainDatapath = trainDataPath + "Negative"
+        
+        
+        for filename in os.listdir(negTestDatapath):
+            with open(os.path.join(negTestDatapath, filename), 'r', encoding="utf8") as f:
                 x_test.append(f.read())
       
-        for filename in os.listdir("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Test\\Positive\\"):
-            with open(os.path.join("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Test\\Positive\\", filename), 'r', encoding="utf8") as f:
+        for filename in os.listdir(posTestDataPath):
+            with open(os.path.join(posTestDataPath, filename), 'r', encoding="utf8") as f:
                 x_test.append(f.read())
       
         #Import training data in x_train
-        for filename in os.listdir("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Train\\Negative\\"):
-            with open(os.path.join("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Train\\Negative\\", filename), 'r', encoding="utf8") as f:
+        for filename in os.listdir(negTrainDatapath):
+            with open(os.path.join(negTrainDatapath, filename), 'r', encoding="utf8") as f:
                 x_train.append(f.read())
       
-        for filename in os.listdir("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Train\\Positive\\"):
-            with open(os.path.join("F:\\Master's\\SS20\\HMI\\SentimentAnalysis\\DataSet\\Train\\Positive\\", filename), 'r', encoding="utf8") as f:
+        for filename in os.listdir(posTrainDataPath):
+            with open(os.path.join(posTrainDataPath, filename), 'r', encoding="utf8") as f:
                 x_train.append(f.read())
 
         print("Dataset successfully imported...!!!")
