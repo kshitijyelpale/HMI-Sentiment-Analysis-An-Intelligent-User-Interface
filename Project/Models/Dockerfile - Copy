@@ -1,0 +1,33 @@
+FROM continuumio/anaconda3:4.4.0
+
+COPY . /usr/app/
+
+EXPOSE 8501
+
+WORKDIR /usr/app/
+
+RUN pip install -r requirements.txt
+
+CMD streamlit run WebApp.py
+
+
+#docker build -t lstm_app .
+#docker run -p 8501:8501 lastm_app
+
+
+You will need to save the Docker image as a tar file:
+
+docker save -o <path for generated tar file> <image name>
+Then copy your image to a new system with regular file transfer tools such as cp, scp or rsync(preferred for big files). After that you will have to load the image into Docker:
+
+docker load -i <path to image tar file>
+PS: You may need to sudo all commands.
+
+EDIT: You should add filename (not just directory) with -o, for example:
+
+docker save -o c:/myfile.tar centos:16
+
+docker tag d822f7225a97 lstm_app
+
+
+#&& yum -y clean all
