@@ -1,1 +1,0 @@
-Here, you will find the main project, as well as demo files which would be used for internal demo purpose.

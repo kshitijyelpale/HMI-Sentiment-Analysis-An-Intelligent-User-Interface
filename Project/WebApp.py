@@ -9,7 +9,7 @@ sys.path.append(".")
 
 import streamlit as st
 
-from Model_LSTM_1 import LSTMModel
+from models.Model_LSTM_1 import LSTMModel
 
 st.title("LSTM for sentiment analysis")
 

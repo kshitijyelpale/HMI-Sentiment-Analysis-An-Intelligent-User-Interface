@@ -93,7 +93,7 @@ score
 
 ### Create a Pickle file using serialization 
 import pickle
-pickle_out = open("classifier.pkl","wb")
+pickle_out = open("classifier.pkl", "wb")
 pickle.dump(classifier, pickle_out)
 pickle_out.close()
 

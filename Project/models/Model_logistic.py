@@ -110,8 +110,8 @@ print("Accuracy is " + str(((cm5[0,0] + cm5[1,1]) / len(y_test)) * 100))
 
 
 #############################################
-from sklearn import svm
-model6 = svm.SVC()
+from sklearn.svm import SVC
+model6 = SVC()
 model6.fit(X_train, y_train)
 y_pred6 = model6.predict(X_test)
 
