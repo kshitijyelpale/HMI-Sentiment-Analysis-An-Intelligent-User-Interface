@@ -1,21 +1,19 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun 17 20:55:20 2020
-
-@author: Kshitij
-"""
 import sys
 sys.path.append(".")
 
 import streamlit as st
 
-from models.Model_LSTM_1 import LSTMModel
+from models.lstm_model import LSTMModel
+
+
 
 st.title("LSTM for sentiment analysis")
 
 reviews = []
 
 lstmModel = LSTMModel()
+
+#x_train, x_test = lstmModel.importData([],[])
 
 userReview = st.text_area("Enter your review here to detect emotion of it")
 st.slider("Rate your review", 0.0, 1.0, 0.5)
@@ -31,7 +29,7 @@ if userReview != "":
     model = lstmModel.loadModel()
     temp, reviews = lstmModel.preProcessData(temp, reviews)
     temp, reviews = lstmModel.encodeData(max_features, max_doc_len, temp, reviews)
-    result = lstmModel.testModel(model, reviews)
+    result = lstmModel.predict(model, reviews)
     print(result)
     st.write("Emotion is ", result)
     

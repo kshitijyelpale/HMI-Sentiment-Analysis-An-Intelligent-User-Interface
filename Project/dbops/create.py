@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, render_template, request
-from models.Model_LSTM import LSTMModel
+#from models.Model_LSTM import LSTMModel
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'

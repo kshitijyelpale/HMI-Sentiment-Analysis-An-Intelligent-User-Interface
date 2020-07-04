@@ -51,12 +51,13 @@ def get_review_details(email_id, reviews):
     return model_values
 
 
-# updating the actual user responce to the reviews in DB
+# updating the actual user response to the reviews in DB
 def update_review_details(actual_values):
     for review_id in actual_values:
         user_review = Reviews.query.get(review_id)
-        user_review.actual_sentiment = actual_values[review_id]
-        db.session.commit()
+        if user_review is not None:
+            user_review.actual_sentiment = actual_values[review_id]
+            db.session.commit()
 
     # trigerring the call to update_user_details function
     update_user_details(1)

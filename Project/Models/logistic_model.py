@@ -1,4 +1,4 @@
-from Model_LSTM_1 import LSTMModel
+from lstm_model import LSTMModel
 
 x_train = []
 y_train = [0]*22750 + [1]*22750
