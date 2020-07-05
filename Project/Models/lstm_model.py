@@ -18,6 +18,8 @@ from tensorflow.keras.layers import LSTM
 
 from utils.utilities import *
 
+from datapreprocessing import *
+
 
 # define class
 class LSTMModel:
@@ -112,7 +114,7 @@ def main():
         max_doc_len = 220
 
         lstmModel = LSTMModel()
-        x_train, x_test = lstmModel.importData(x_train, x_test)
+        x_train, x_test = import_data(x_train, x_test)
         x_train, x_test = lstmModel.preProcessData(x_train, x_test)
         x_train, x_test = lstmModel.encodeData(max_features, max_doc_len, x_train, x_test)
         model = lstmModel.createModel(max_features)

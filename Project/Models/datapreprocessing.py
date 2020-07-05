@@ -1,21 +1,10 @@
 import os
 import re
-import sys
-import nltk
-
-try:
-    from nltk.corpus import stopwords
-except:
-    nltk.download('stopwords')
-    from nltk.corpus import stopwords
-
-from tensorflow.keras.preprocessing.text import one_hot
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-
-from utils.utilities import read_data
 
 
-def importData():
+def import_data(x_train=[], x_test=[]):
+    from utilities import read_data
+
     print("Importing Dataset... Please wait!")
 
     # Import testing data in x_test
@@ -43,6 +32,13 @@ def importData():
 
 # Method for pre-processing data
 def remove_stopwords_and_special_chars(data):
+    import nltk
+    try:
+        from nltk.corpus import stopwords
+    except:
+        nltk.download('stopwords')
+        from nltk.corpus import stopwords
+
     # Fetch all stopwords and keep required stopwords
     all_stopwords = stopwords.words('english')
 
@@ -73,6 +69,9 @@ def remove_stopwords_and_special_chars(data):
 
 
 def onehot_encoding(data, max_features=50000, max_doc_length=100):
+    from tensorflow.keras.preprocessing.text import one_hot
+    from tensorflow.keras.preprocessing.sequence import pad_sequences
+
     data = [one_hot(document, max_features) for document in data]
 
     # Add Bias
@@ -83,3 +82,14 @@ def onehot_encoding(data, max_features=50000, max_doc_length=100):
     data = pad_sequences(data, truncating='post', padding='post', maxlen=max_doc_length)
 
     return data
+
+
+def tfidfvectorizer(data, test_data=[]):
+    from sklearn.feature_extraction.text import TfidfVectorizer
+
+    vectorizer = TfidfVectorizer(use_idf=True, lowercase=True, strip_accents='ascii')
+
+    data = vectorizer.fit_transform(data)
+    test_data = vectorizer.transform(test_data)
+
+    return data, test_data
