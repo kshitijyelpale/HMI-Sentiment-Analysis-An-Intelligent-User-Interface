@@ -1,15 +1,13 @@
 from abc import ABC, abstractmethod
 
-from datapreprocessing import *
-
 
 class MLModelTemplate(ABC):
     def __init__(self):
         pass
 
     # Method for pre-processing data
-    def preProcessData(self, x_train, x_test):
-        from datapreprocessing import remove_stopwords_and_special_chars
+    def pre_process_data(self, x_train, x_test):
+        from models.datapreprocessing import remove_stopwords_and_special_chars
 
         print("Pre-processing data... Please wait!")
 
@@ -52,7 +50,7 @@ class MLModelTemplate(ABC):
 
         x_train, x_test = import_data(x_train, x_test)
 
-        x_train, x_test = self.preProcessData(x_train, x_test)
+        x_train, x_test = self.pre_process_data(x_train, x_test)
 
         X_train, X_test = tfidfvectorizer(x_train, x_test)
 
