@@ -3,7 +3,7 @@ import re
 
 
 def import_data(x_train=[], x_test=[]):
-    from utilities import read_data
+    from models.ml_utilities import read_data
 
     print("Importing Dataset... Please wait!")
 

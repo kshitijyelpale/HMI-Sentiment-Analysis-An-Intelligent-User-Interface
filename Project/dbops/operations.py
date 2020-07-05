@@ -1,5 +1,7 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 from models import *
 
 app = Flask(__name__)
@@ -7,6 +9,33 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    email_id = db.Column(db.String(50), unique=True, nullable=False)
+    lstm_metric = db.Column(db.Float)
+    bayes_metric = db.Column(db.Float)
+    reviews = db.relationship("Reviews", backref="user", lazy=True)
+
+    def add_reviews(self, reviews):
+        for review in reviews:
+            r = Reviews(review=review, user_id=self.id)
+            db.session.add(r)
+        db.session.commit()
+
+
+class Reviews(db.Model):
+    __tablename__ = "user_reviews"
+    id = db.Column(db.Integer, primary_key=True)
+    review = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    lstm_prediction = db.Column(db.Float)
+    bayes_prediction = db.Column(db.Float)
+    actual_sentiment = db.Column(db.Float)
 
 # function to get user_id from email_id
 def get_user_id(email_id):

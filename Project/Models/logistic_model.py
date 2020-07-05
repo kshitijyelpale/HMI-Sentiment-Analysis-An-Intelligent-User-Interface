@@ -1,4 +1,4 @@
-from ml_model_template import MLModelTemplate
+from models.ml_model_template import MLModelTemplate
 
 
 class LogisticModel(MLModelTemplate):
