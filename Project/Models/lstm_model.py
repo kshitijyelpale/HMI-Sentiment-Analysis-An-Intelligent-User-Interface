@@ -65,13 +65,6 @@ class LSTMModel(MLModelTemplate):
         print('Test score:', score)
         print('Test accuracy:', acc)
 
-    # Method for predicting results through trained model
-    def predict(self, model, x_test):
-        output = model.predict(x_test)
-        # print(output.shape)
-        # print(output)
-
-        return output
 
     # Method for saving trained model
     def save_model(self, model):
@@ -88,6 +81,7 @@ class LSTMModel(MLModelTemplate):
         print("Model loaded successfully...")
 
         return loaded_model
+        
 
     def execute(self):
         try:
@@ -127,8 +121,19 @@ class LSTMModel(MLModelTemplate):
 
         except:
             print("Unexpected error:", sys.exc_info()[0:2])
+            
+    def predict_reviews(self, raw_data):
+        temp = []
+        temp, data = self.pre_process_data(temp, raw_data)
+        temp, data = self.encode_data(47000, 220, temp, data)
+        model = self.load_model()
+        return self.predict(model, data)
 
 
 if __name__ == "__main__":
     lstm = LSTMModel()
-    lstm.execute()
+    #lstm.execute()
+    
+    reviews = ["I am very happy after watching this movie"]
+    result = lstm.predict_reviews(reviews)
+    print(result[0][0])
