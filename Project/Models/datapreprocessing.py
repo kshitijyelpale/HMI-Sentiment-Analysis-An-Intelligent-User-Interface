@@ -90,6 +90,8 @@ def tfidfvectorizer(data, test_data=[]):
     vectorizer = TfidfVectorizer(use_idf=True, lowercase=True, strip_accents='ascii')
 
     data = vectorizer.fit_transform(data)
-    test_data = vectorizer.transform(test_data)
-
-    return data, test_data
+    if test_data:
+        test_data = vectorizer.transform(test_data)
+        return vectorizer, data, test_data
+    
+    return vectorizer, data

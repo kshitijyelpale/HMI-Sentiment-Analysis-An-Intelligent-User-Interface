@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+from ml_utilities import *
 
 class MLModelTemplate(ABC):
     def __init__(self):
@@ -28,7 +29,7 @@ class MLModelTemplate(ABC):
         return model
 
     def predict(self, model, data):
-        return model.predict(data)
+        return model.predict_proba(data)
 
     def get_accuracy(self, y_true, y_pred):
         from sklearn.metrics import accuracy_score
@@ -41,24 +42,54 @@ class MLModelTemplate(ABC):
         from sklearn.metrics import confusion_matrix
 
         return confusion_matrix(y_true, y_pred)
+    
+    
+    def predict_reviews(self):
+        pass
+    
+    def save_model(self, model, ext = ''):
+        path = os.path.dirname(__file__)
+        name = type(self).__name__
+        if ext:
+            name +=  "_" + ext
+        save_ml_model(model, path, name)
+        print("Model saved...")
+    
+    
+    def load_model(self, ext = ''):
+        path = os.path.dirname(__file__)
+        name = type(self).__name__
+        if ext:
+            name +=  "_" + ext
+        return load_ml_model(path, name)
+        
 
     def execute(self):
         x_train = []
         y_train = [0] * 22750 + [1] * 22750
         x_test = []
         y_test = [0] * 2250 + [1] * 2250
+        from datapreprocessing import import_data, tfidfvectorizer
 
         x_train, x_test = import_data(x_train, x_test)
 
         x_train, x_test = self.pre_process_data(x_train, x_test)
 
-        X_train, X_test = tfidfvectorizer(x_train, x_test)
+        vec, x_train, x_test = tfidfvectorizer(x_train, x_test)
+        
+        self.save_model(vec, 'vec')
 
         model = self.create_model()
 
-        model = self.train_model(model, X_train, y_train)
+        # model = self.train_model(model, X_train, y_train)
+        
+        model.fit(x_train, y_train)
+        
+        self.save_model(model)
+        
+        model = self.load_model()
 
-        y_pred = self.predict(model, X_test)
+        y_pred = self.predict(model, x_test)
 
         cm = self.get_confusion_matrix(y_test, y_pred)
 

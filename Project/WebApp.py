@@ -67,15 +67,15 @@ if email and reviews:
         st.write(data)
     
     
-    '''reviews.append(userReview)
-    max_features = 47000
-    max_doc_len = 220
-    temp = []
-    model = lstmModel.loadModel()
-    temp, reviews = lstmModel.preProcessData(temp, reviews)
-    temp, reviews = lstmModel.encodeData(max_features, max_doc_len, temp, reviews)
-    result = lstmModel.predict(model, reviews)
-    print(result)
-    st.write("Emotion is ", result)
-    '''
+    # reviews.append(userReview)
+    # max_features = 47000
+    # max_doc_len = 220
+    # temp = []
+    # model = lstmModel.loadModel()
+    # temp, reviews = lstmModel.preProcessData(temp, reviews)
+    # temp, reviews = lstmModel.encodeData(max_features, max_doc_len, temp, reviews)
+    # result = lstmModel.predict(model, reviews)
+    # print(result)
+    # st.write("Emotion is ", result)
+
     

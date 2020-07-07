@@ -29,7 +29,7 @@ def save_nn_model(model, path, name):
 def load_nn_model(filename):
     # Load JSON and create model
 
-    json_file = file + ".json"
+    json_file = filename + ".json"
 
     file = open(json_file, "r")
     model_json = file.read()
@@ -41,3 +41,18 @@ def load_nn_model(filename):
     print("Model loaded successfully...")
 
     return loaded_model
+
+
+def save_ml_model(model, path, name):
+    import pickle
+    pickle_out = open(path + "/" + name + ".pkl", "wb")
+    pickle.dump(model, pickle_out)
+    pickle_out.close()
+    
+    
+def load_ml_model(path, name):
+    import pickle
+    pickle_in = open(path + "/" + name + ".pkl", "rb")
+    model = pickle.load(pickle_in)
+    
+    return model
