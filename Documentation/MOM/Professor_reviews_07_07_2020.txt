@@ -1,0 +1,15 @@
+Table1 (user)
+user_id | email_id | LSTM | BAYES
+1		 Shubham@gm	 0.07	0.12
+2		 Saf@gm		 0.9	0.2
+
+
+Table2 (user_reviews)
+Review_id | Review | User_id | LSTM | BAYES | Actual | LSTM_RES | BAYES_RES
+1			R1			1	   0.83	  0.70	  0.75		0.08		0.05
+2			R2			1	   0.11	  0.30	  0.05     	0.06		0.19
+
+
+1. Manipulation check - ANOVA - Independent variables: Movie and participant, DV: actual
+2. Corelation analysis
+3. T test
