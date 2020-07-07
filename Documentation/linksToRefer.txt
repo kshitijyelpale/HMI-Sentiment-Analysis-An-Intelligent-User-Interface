@@ -5,3 +5,17 @@ https://machinelearningmastery.com/sequence-classification-lstm-recurrent-neural
 https://medium.com/@GeneAshis/nlp-sentiment-analysis-on-imdb-movie-dataset-fb0c4d346d23
 
 https://thedatafrog.com/en/articles/word-embedding-sentiment-analysis/
+
+https://vali.de/wp-content/uploads/2019/01/2019-CHI-StereotypicalContentModel.pdf
+
+https://nhenze.net/uploads/PredicTouch-A-System-to-Reduce-Touchscreen-Latency-using-Neural-Networks-and-Inertial-Measurement-Units.pdf
+
+https://www.researchgate.net/publication/335704431_Text_Analysis_Using_Large_High-Resolution_Displays
+
+http://huyle.de/wp-content/papercite-data/pdf/le2018infinitouch.pdf
+
+https://www.r-bloggers.com/how-to-calculate-confidence-intervals-of-correlations-with-r/
+
+https://rdrr.io/cran/psychometric/man/CIr.html
+
+https://www.statmethods.net/stats/correlations.html
