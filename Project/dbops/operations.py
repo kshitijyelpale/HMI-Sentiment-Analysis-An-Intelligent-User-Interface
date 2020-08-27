@@ -37,6 +37,7 @@ class Reviews(db.Model):
     bayes_prediction = db.Column(db.Float)
     actual_sentiment = db.Column(db.Float)
 
+
 # function to get user_id from email_id
 def get_user_id(email_id):
     # converting email_id to lowercase as ids are case insensitive

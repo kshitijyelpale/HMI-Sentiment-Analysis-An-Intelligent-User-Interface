@@ -93,5 +93,5 @@ def tfidfvectorizer(data, test_data=[]):
     if test_data:
         test_data = vectorizer.transform(test_data)
         return vectorizer, data, test_data
-    
+
     return vectorizer, data

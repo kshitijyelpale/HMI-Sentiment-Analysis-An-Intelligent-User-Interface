@@ -48,11 +48,11 @@ def save_ml_model(model, path, name):
     pickle_out = open(path + "/" + name + ".pkl", "wb")
     pickle.dump(model, pickle_out)
     pickle_out.close()
-    
-    
+
+
 def load_ml_model(path, name):
     import pickle
     pickle_in = open(path + "/" + name + ".pkl", "rb")
     model = pickle.load(pickle_in)
-    
+
     return model

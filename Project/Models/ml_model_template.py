@@ -3,6 +3,7 @@ import os
 
 from Models.ml_utilities import save_ml_model, load_ml_model
 
+
 class MLModelTemplate(ABC):
     def __init__(self):
         pass
@@ -43,27 +44,24 @@ class MLModelTemplate(ABC):
         from sklearn.metrics import confusion_matrix
 
         return confusion_matrix(y_true, y_pred)
-    
-    
+
     def predict_reviews(self):
         pass
-    
-    def save_model(self, model, ext = ''):
+
+    def save_model(self, model, ext=''):
         path = os.path.dirname(__file__)
         name = type(self).__name__
         if ext:
-            name +=  "_" + ext
+            name += "_" + ext
         save_ml_model(model, path, name)
         print("Model saved...")
-    
-    
-    def load_model(self, ext = ''):
+
+    def load_model(self, ext=''):
         path = os.path.dirname(__file__)
         name = type(self).__name__
         if ext:
-            name +=  "_" + ext
+            name += "_" + ext
         return load_ml_model(path, name)
-        
 
     def execute(self):
         x_train = []
@@ -77,17 +75,17 @@ class MLModelTemplate(ABC):
         x_train, x_test = self.pre_process_data(x_train, x_test)
 
         vec, x_train, x_test = tfidfvectorizer(x_train, x_test)
-        
+
         self.save_model(vec, 'vec')
 
         model = self.create_model()
 
         # model = self.train_model(model, X_train, y_train)
-        
+
         model.fit(x_train, y_train)
-        
+
         self.save_model(model)
-        
+
         model = self.load_model()
 
         y_pred = self.predict(model, x_test)

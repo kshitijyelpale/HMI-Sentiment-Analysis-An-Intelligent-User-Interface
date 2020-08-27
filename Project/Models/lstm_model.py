@@ -13,9 +13,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Embedding
 from tensorflow.keras.layers import LSTM
 
-from models.ml_utilities import *
+from Models.ml_utilities import *
 
-from models.ml_model_template import MLModelTemplate
+from Models.ml_model_template import MLModelTemplate
 
 
 # define class
@@ -27,7 +27,7 @@ class LSTMModel(MLModelTemplate):
     # Method for Vectorizing(One-Hot) and Encoding data
     def encode_data(self, max_features, max_doc_len, x_train, x_test):
         
-        from models.datapreprocessing import onehot_encoding
+        from Models.datapreprocessing import onehot_encoding
         
         print("Encoding data to One Hot Representation...")
 
