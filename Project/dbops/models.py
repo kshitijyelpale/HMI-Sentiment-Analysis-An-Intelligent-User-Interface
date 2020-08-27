@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-class User(db.Model):
+'''class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email_id = db.Column(db.String(50), unique=True, nullable=False)
@@ -15,7 +15,7 @@ class User(db.Model):
         for review in reviews:
             r = Reviews(review=review, user_id=self.id)
             db.session.add(r)
-        db.session.commit()
+        db.session.commit()'''
 
 
 class Reviews(db.Model):

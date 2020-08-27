@@ -1,24 +1,12 @@
 # import libraries
 import os
 import sys
-import nltk
-
-try:
-    from nltk.corpus import stopwords
-except:
-    nltk.download('stopwords')
-    from nltk.corpus import stopwords
 from keras.datasets import imdb
 from tensorflow import keras
 from tensorflow.keras import layers
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Embedding
-from tensorflow.keras.layers import LSTM
-
-from models.ml_utilities import *
-
-from models.ml_model_template import MLModelTemplate
+from Models.datapreprocessing import remove_stopwords_and_special_chars
+from Models.ml_utilities import load_nn_model, save_nn_model
+from Models.ml_model_template import MLModelTemplate
 
 
 # define class
@@ -62,12 +50,12 @@ class BiLSTMModel(MLModelTemplate):
     def save_model(self, model):
         path = os.path.dirname(__file__)
 
-        save_nn_model(model, path, "bi_lstm_model")
+        save_nn_model(model, path, "bi_lstm")
         print("Model saved...")
 
     # Method for loading saved model
     def load_model(self):
-        filename = path = os.path.dirname(__file__) + "/bi_lstm_model"
+        filename = os.path.dirname(__file__) + "/bi_lstm"
 
         loaded_model = load_nn_model(filename)
         print("Model loaded successfully...")
@@ -75,13 +63,9 @@ class BiLSTMModel(MLModelTemplate):
         return loaded_model
         
 
-    def execute(self):
+    def execute(self, new_review):
         try:
-            # Load the saved model
-            model = self.load_model()
-
-            # Try with new review
-            new_review = ["""I absolutely adored this movie. For me, the best reason to see it is how stark a contrast it is from legal dramas like "Boston Legal" or "Ally McBeal" or even "LA Law." This is REALITY. The law is not BS, won in some closing argument or through some ridiculous defense you pull out of your butt, like the "Chewbacca defense" on South Park.) This is a real travesty of justice, the legal system gone horribly wrong, and the work by GOOD lawyers - not the shyster stereotype, who use all of their skills to right it. It will do more for restoring your faith in humanity than any Frank Capra movie or TO KILL A MOCKINGBIRD. And most importantly, I wept. During the film, during the featurette included at the end of the DVD - it's amazing. Wonderful film; wonderfully made. Thank God the filmmakers made it."""]
+            new_review = remove_stopwords_and_special_chars(new_review)
             word_indices = imdb.get_word_index()
             reviews = []
             for doc in new_review:
@@ -94,22 +78,13 @@ class BiLSTMModel(MLModelTemplate):
               review.sort(reverse=True)
               reviews.append(review)
             x_test = keras.preprocessing.sequence.pad_sequences(reviews, truncating = 'post', padding = 'post', maxlen = self.__maxlen)
-            #print(model.predict(x_test))
-
-            self.predict(model, new_review)
+            return x_test
 
         except:
             print("Unexpected error:", sys.exc_info()[0:2])
             
     def predict_reviews(self, raw_data):
+        data = self.execute(raw_data)
         model = self.load_model()
         return self.predict(model, data)
 
-
-if __name__ == "__main__":
-    bi_lstm = BiLSTMModel()
-    #bi_lstm.execute()
-    
-    reviews = ["""I absolutely adored this movie. For me, the best reason to see it is how stark a contrast it is from legal dramas like "Boston Legal" or "Ally McBeal" or even "LA Law." This is REALITY. The law is not BS, won in some closing argument or through some ridiculous defense you pull out of your butt, like the "Chewbacca defense" on South Park.) This is a real travesty of justice, the legal system gone horribly wrong, and the work by GOOD lawyers - not the shyster stereotype, who use all of their skills to right it. It will do more for restoring your faith in humanity than any Frank Capra movie or TO KILL A MOCKINGBIRD. And most importantly, I wept. During the film, during the featurette included at the end of the DVD - it's amazing. Wonderful film; wonderfully made. Thank God the filmmakers made it."""]
-    result = bi_lstm.predict_reviews(reviews)
-    print(result[0][0])

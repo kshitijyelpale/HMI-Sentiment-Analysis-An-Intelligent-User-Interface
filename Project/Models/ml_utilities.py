@@ -16,8 +16,8 @@ def save_nn_model(model, path, name):
     # Serialize to JSON
     json_file = model.to_json()
     file_name = path + "/" + name
-    json_file = file + ".json"
-    with open(file, "w") as file:
+    json_file = file_name + ".json"
+    with open(json_file, "w") as file:
         file.write(json_file)
 
     # Serialize weights to HDF5

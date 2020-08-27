@@ -1,4 +1,4 @@
-from models.ml_model_template import MLModelTemplate
+from Models.ml_model_template import MLModelTemplate
 
 
 class NaiveBayesModel(MLModelTemplate):
@@ -20,13 +20,13 @@ class NaiveBayesModel(MLModelTemplate):
         temp = []
         temp, data = self.pre_process_data(temp, raw_data)
 
-        print(data)
+        #print(data)
         #from datapreprocessing import tfidfvectorizer
         #data = tfidfvectorizer.transform(data)
         vec = self.load_model("vec")
         data = vec.transform(data)
-        print(data)
-        print(type(data))
+        #print(data)
+        #print(type(data))
         model = self.load_model()
         
         output = self.predict(model, data)

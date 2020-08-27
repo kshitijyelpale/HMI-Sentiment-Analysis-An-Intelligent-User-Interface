@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
+import os
 
-from ml_utilities import *
+from Models.ml_utilities import save_ml_model, load_ml_model
 
 class MLModelTemplate(ABC):
     def __init__(self):
@@ -8,7 +9,7 @@ class MLModelTemplate(ABC):
 
     # Method for pre-processing data
     def pre_process_data(self, x_train, x_test):
-        from models.datapreprocessing import remove_stopwords_and_special_chars
+        from Models.datapreprocessing import remove_stopwords_and_special_chars
 
         print("Pre-processing data... Please wait!")
 
