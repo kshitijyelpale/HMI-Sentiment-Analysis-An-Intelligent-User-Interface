@@ -9,6 +9,18 @@ from Models.naive_bayes_model import NaiveBayesModel
 from dbops.models import Reviews, db
 
 
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 # define class
 class DBInitLoad:
 
@@ -49,10 +61,12 @@ class DBInitLoad:
         self.__bayes_rat = [j for sub in self.__bayes_rat for j in sub]
 
     def updateDB(self):
-        for i in range(4500):
-            r = Reviews(self.__rev_lst[i], self.__lstm_rat[i], self.__bayes_rat[i], self.__rat_lst[i])
-            db.session.add(r)
-        db.session.commit()
+        with app.app_context():
+            for i in range(4500):
+                r = Reviews(review=self.__rev_lst[i], lstm_prediction=self.__lstm_rat[i],
+                        bayes_prediction=self.__bayes_rat[i], actual_sentiment=self.__rat_lst[i])
+                db.session.add(r)
+            db.session.commit()
 
     def printAll(self):
         print(self.__lstm_rat, self.__bayes_rat)
