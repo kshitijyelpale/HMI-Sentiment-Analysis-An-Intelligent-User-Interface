@@ -31,6 +31,6 @@ class Ratings(db.Model):
     __tablename__ = "user_ratings"
     id = db.Column(db.Integer, primary_key=True)
     lstm_deviation = db.Column(db.Float)
-    bayes_deveation = db.Column(db.Float)
+    bayes_deviation = db.Column(db.Float)
     user_sentiment = db.Column(db.Float)
     review_id = db.Column(db.Integer, db.ForeignKey("reviews.id"), nullable=False)
