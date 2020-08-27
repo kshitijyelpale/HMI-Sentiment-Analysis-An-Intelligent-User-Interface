@@ -13,31 +13,6 @@ with app.app_context():
     db.create_all()
 
 
-class User(db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    email_id = db.Column(db.String(50), unique=True, nullable=False)
-    lstm_metric = db.Column(db.Float)
-    bayes_metric = db.Column(db.Float)
-    reviews = db.relationship("Reviews", backref="user", lazy=True)
-
-    def add_reviews(self, reviews):
-        for review in reviews:
-            r = Reviews(review=review, user_id=self.id)
-            db.session.add(r)
-        db.session.commit()
-
-
-class Reviews(db.Model):
-    __tablename__ = "user_reviews"
-    id = db.Column(db.Integer, primary_key=True)
-    review = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    lstm_prediction = db.Column(db.Float)
-    bayes_prediction = db.Column(db.Float)
-    actual_sentiment = db.Column(db.Float)
-
-
 # function to get user_id from email_id
 def get_user_id(email_id):
     # converting email_id to lowercase as ids are case insensitive
@@ -98,6 +73,28 @@ def update_user_details(user_id):
     # TO-DO: to be completed once we are sure about the metric
     pass
 
+''' api to update the user ratings based on actual values from user and predicted values from the models'''
+def update_user_ratings(user_values):
+    for review_id in user_values:
+        review = Reviews.query.get(review_id)
+        print(review)
+        if review is not None:
+            lstm_deviation = abs(review.lstm_prediction - review.actual_sentiment)
+            bayes_deviation = abs(review.bayes_prediction - review.actual_sentiment)
+            user_sentiment = user_values[review_id]
+            print(lstm_deviation)
+            r = Ratings(lstm_deviation=lstm_deviation, bayes_deviation=bayes_deviation, user_sentiment=user_sentiment, review_id=review_id)
+            db.session.add(r)
+    db.session.commit()
+
+''' api to get the dictionery of reviews '''
+def get_reviews(review_ids):
+    review_dict = {}
+    for id in review_ids:
+        review = Reviews.query.get(id)
+        if review is not None:
+            review_dict[id] = review.review
+    return review_dict
 
 def main():
     # print(get_review_details("u6@gmail.com",["R5","R6"]))
@@ -105,7 +102,8 @@ def main():
         3: 0.65,
         4: 0.70
     }
-    update_review_details(test_dict)
+    # update_user_ratings(test_dict)
+    print(get_reviews([3,4]))
 
 
 if __name__ == "__main__":
