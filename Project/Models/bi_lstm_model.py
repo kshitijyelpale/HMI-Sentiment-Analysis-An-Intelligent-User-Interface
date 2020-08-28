@@ -2,10 +2,10 @@
 import os
 import sys
 from keras.datasets import imdb
+from keras.models import load_model
 from tensorflow import keras
 from tensorflow.keras import layers
 from Models.datapreprocessing import remove_stopwords_and_special_chars
-from Models.ml_utilities import load_nn_model, save_nn_model
 from Models.ml_model_template import MLModelTemplate
 
 
@@ -13,7 +13,7 @@ from Models.ml_model_template import MLModelTemplate
 class BiLSTMModel(MLModelTemplate):
 
     def __init__(self):
-        self.__max_features = 20000  # Only consider the top 20k words
+        self.__max_features = 200000  # Only consider the top 20k words
         self.__maxlen = 200  # Only consider the first 200 words of each movie review
 
     #Load the IMDB movie review sentiment data
@@ -48,20 +48,14 @@ class BiLSTMModel(MLModelTemplate):
 
     # Method for saving trained model
     def save_model(self, model):
-        path = os.path.dirname(__file__)
-
-        save_nn_model(model, path, "bi_lstm")
+        filename = os.path.dirname(__file__) + "/bi_lstm_weights.h5"
+        model.save(filename)
         print("Model saved...")
 
     # Method for loading saved model
     def load_model(self):
-        filename = os.path.dirname(__file__) + "/bi_lstm"
-
-        loaded_model = load_nn_model(filename)
-        print("Model loaded successfully...")
-
-        return loaded_model
-        
+        filename = os.path.dirname(__file__) + "/bi_lstm_weights.h5"
+        return load_model(filename)
 
     def execute(self, new_review):
         try:
@@ -85,6 +79,7 @@ class BiLSTMModel(MLModelTemplate):
             
     def predict_reviews(self, raw_data):
         data = self.execute(raw_data)
-        model = self.load_model()
-        return self.predict(model, data)
-
+        self.load_data()
+        model = self.create_model()
+        model = self.train_model(model)
+        return model.predict(data)

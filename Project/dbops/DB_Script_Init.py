@@ -27,7 +27,6 @@ class DBInitLoad:
     def __init__(self):
         self.__rev_lst, self.__rat_lst = [], []
         self.__lstm_rat, self.__bayes_rat = [], []
-        # self.__prim_key = list(range(4500))
 
     # Method for importing dataset
     def importData(self):
@@ -55,7 +54,7 @@ class DBInitLoad:
 
 
     def predictAll(self):
-        self.__lstm_rat = LSTMModel().predict_reviews(self.__rev_lst)
+        self.__lstm_rat = BiLSTMModel().predict_reviews(self.__rev_lst)
         self.__lstm_rat = [j for sub in self.__lstm_rat for j in sub]
         self.__bayes_rat = NaiveBayesModel().predict_reviews(self.__rev_lst)
         self.__bayes_rat = [j for sub in self.__bayes_rat for j in sub]
@@ -69,7 +68,7 @@ class DBInitLoad:
             db.session.commit()
 
     def printAll(self):
-        print(self.__lstm_rat, self.__bayes_rat)
+        print(len(self.__lstm_rat), len(self.__bayes_rat))
 
 
 def main():
