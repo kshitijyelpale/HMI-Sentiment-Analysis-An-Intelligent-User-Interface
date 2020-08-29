@@ -2,15 +2,12 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-from models import *
+from dbops.models import *
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
-
-with app.app_context():
-    db.create_all()
 
 
 # function to get user_id from email_id
@@ -73,7 +70,10 @@ def update_user_details(user_id):
     # TO-DO: to be completed once we are sure about the metric
     pass
 
+
 ''' api to update the user ratings based on actual values from user and predicted values from the models'''
+
+
 def update_user_ratings(user_values):
     for review_id in user_values:
         review = Reviews.query.get(review_id)
@@ -83,11 +83,15 @@ def update_user_ratings(user_values):
             bayes_deviation = abs(review.bayes_prediction - review.actual_sentiment)
             user_sentiment = user_values[review_id]
             print(lstm_deviation)
-            r = Ratings(lstm_deviation=lstm_deviation, bayes_deviation=bayes_deviation, user_sentiment=user_sentiment, review_id=review_id)
+            r = Ratings(lstm_deviation=lstm_deviation, bayes_deviation=bayes_deviation, user_sentiment=user_sentiment,
+                        review_id=review_id)
             db.session.add(r)
     db.session.commit()
 
+
 ''' api to get the dictionery of reviews '''
+
+
 def get_reviews(review_ids):
     review_dict = {}
     for id in review_ids:
@@ -96,6 +100,28 @@ def get_reviews(review_ids):
             review_dict[id] = review.review
     return review_dict
 
+
+def get_lstm_predictions():
+    lstm_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))
+    lstm_values = [val for (val,) in lstm_values]
+
+    return lstm_values
+
+
+def get_bayes_predictions():
+    bayes_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))
+    bayes_values = [val for (val,) in bayes_values]
+
+    return bayes_values
+
+
+def get_actual_sentiments():
+    actual_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))
+    actual_values = [val for (val,) in actual_values]
+
+    return actual_values
+
+
 def main():
     # print(get_review_details("u6@gmail.com",["R5","R6"]))
     test_dict = {
@@ -103,7 +129,8 @@ def main():
         4: 0.70
     }
     # update_user_ratings(test_dict)
-    print(get_reviews([3,4]))
+    # print(get_reviews([3,4]))
+    print(get_lstm_predictions())
 
 
 if __name__ == "__main__":
