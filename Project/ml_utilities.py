@@ -4,14 +4,14 @@ from tensorflow.keras.models import model_from_json
 
 
 # define class
-def read_data(path, data = [], prob = []):
+def read_data(path, data=[], prob=[]):
     for filename in os.listdir(path):
-            with open(os.path.join(path, filename), 'r', encoding="utf8") as f:
-                st_ind = list(filename).index("_")
-                nd_ind = list(filename).index(".")
-                if filename[nd_ind-1] != ')':
-                    data.append(f.read())
-                    prob.append(int(filename[st_ind + 1:nd_ind]) / 10)
+        with open(os.path.join(path, filename), 'r', encoding="utf8") as f:
+            st_ind = list(filename).index("_")
+            nd_ind = list(filename).index(".")
+            if filename[nd_ind - 1] != ')':
+                data.append(f.read())
+                prob.append(int(filename[st_ind + 1:nd_ind]) / 10)
 
     return data, prob
 

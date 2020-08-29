@@ -66,17 +66,18 @@ class MLModelTemplate(ABC):
     def execute(self):
         from datapreprocessing import import_data, tfidfvectorizer
 
-        x_train, y_train, x_test, y_test = import_data([], [])
-
+        x_train, y_train, x_test, y_test = import_data(True)
+        
         x_train, x_test = self.pre_process_data(x_train, x_test)
-
+        
         vec, x_train, x_test = tfidfvectorizer(x_train, x_test)
-
+        print(x_train[:2], y_train[:2])
+        print(type(x_train), type(y_train))
         self.save_model(vec, 'vec')
 
         model = self.create_model()
 
-        model = self.train_model(model, X_train, y_train)
+        # model = self.train_model(model, x_train, y_train)
 
         model.fit(x_train, y_train)
 

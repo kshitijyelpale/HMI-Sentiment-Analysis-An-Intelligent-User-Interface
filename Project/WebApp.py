@@ -1,5 +1,6 @@
 import sys
-
+from random import seed
+from random import randint, random
 sys.path.append(".")
 
 import streamlit as st
@@ -79,3 +80,36 @@ if email and reviews:
     # st.write("Emotion is ", result)
 
     
+seed(1)
+
+email = st.text_input("Enter your email here")
+
+st.text("Please rate following movie reviews")
+
+review_ids = []
+for i in range(1,6):
+    review_ids.append(randint(1,4501))
+    
+
+r_id1 = randint(1,100)
+r_id2 = randint(1,100)
+r_id3 = randint(1,100)
+r_id4 = randint(1,100)
+r_id5 = randint(1,100)
+
+st.text(st.write(r_id1))
+user_rating1 = st.slider("Rate above review", 0.0, 1.0, 0.5, key="ur1")
+
+st.text(st.write(r_id2))
+user_rating2 = st.slider("Rate above review", 0.0, 1.0, 0.5, key="ur2")
+
+st.text(st.write(r_id3))
+user_rating3 = st.slider("Rate above review", 0.0, 1.0, 0.5, key="ur3")
+
+st.text(st.write(r_id4))
+user_rating4 = st.slider("Rate above review", 0.0, 1.0, 0.5, key="ur4")
+
+st.text(st.write(r_id5))
+user_rating5 = st.slider("Rate above review", 0.0, 1.0, 0.5, key="ur5")
+
+st.text("Thanks for providing review")

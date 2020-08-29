@@ -91,7 +91,7 @@ class LSTMModel(MLModelTemplate):
             max_doc_len = 220
 
             from datapreprocessing import import_data
-            x_train, y_train, x_test, y_test = import_data([], [])
+            x_train, y_train, x_test, y_test = import_data(False)
             x_train, x_test = self.pre_process_data(x_train, x_test)
             x_train, x_test = self.encode_data(max_features, max_doc_len, x_train, x_test)
 
