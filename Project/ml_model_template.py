@@ -76,7 +76,7 @@ class MLModelTemplate(ABC):
 
         model = self.create_model()
 
-        # model = self.train_model(model, X_train, y_train)
+        model = self.train_model(model, X_train, y_train)
 
         model.fit(x_train, y_train)
 

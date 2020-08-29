@@ -35,7 +35,7 @@ class NaiveBayesModel(MLModelTemplate):
 
 if __name__ == "__main__":
     nb_model = NaiveBayesModel()
-    # nb_model.execute()
+    nb_model.execute()
     reviews = ["I am very happy after watching this movie", "i did not like it"]
 
     print(nb_model.predict_reviews(reviews))
