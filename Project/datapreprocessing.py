@@ -1,16 +1,18 @@
 import os
 import re
-
+from ml_utilities import read_data
 
 def import_data():
     print("Importing Dataset... Please wait!")
 
-    # Import testing data in x_test
+    # Import Training and Testing Data
+    ''' y_train = [0] * 22750 + [1] * 22750
+    y_test = [0] * 2250 + [1] * 2250 '''
     x_train, y_train=[], []
     x_test, y_test=[], []
     path = os.path.dirname(__file__)
 
-    dataset_path = path + "/../DataSet/"
+    dataset_path = path + "/DataSet/"
 
     test_data_path = dataset_path + "Test/"
     pos_test_data_path = test_data_path + "Positive"
@@ -20,33 +22,11 @@ def import_data():
     pos_train_data_path = train_data_path + "Positive"
     neg_train_data_path = train_data_path + "Negative"
 
-    for filename in os.listdir(neg_test_data_path):
-            with open(os.path.join(neg_test_data_path, filename), 'r', encoding="utf8") as f:
-                st_ind = list(filename).index("_")
-                nd_ind = list(filename).index(".")
-                x_test.append(f.read())
-                y_test.append(int(filename[st_ind + 1:nd_ind]) / 10)
+    x_train, y_train = read_data(pos_train_data_path)
+    x_train, y_train = read_data(neg_train_data_path)
 
-    for filename in os.listdir(pos_test_data_path):
-            with open(os.path.join(pos_test_data_path, filename), 'r', encoding="utf8") as f:
-                st_ind = list(filename).index("_")
-                nd_ind = list(filename).index(".")
-                x_test.append(f.read())
-                y_test.append(int(filename[st_ind + 1:nd_ind]) / 10)
-                
-    for filename in os.listdir(neg_train_data_path):
-            with open(os.path.join(neg_train_data_path, filename), 'r', encoding="utf8") as f:
-                st_ind = list(filename).index("_")
-                nd_ind = list(filename).index(".")
-                x_train.append(f.read())
-                y_train.append(int(filename[st_ind + 1:nd_ind]) / 10)
-
-    for filename in os.listdir(pos_train_data_path):
-            with open(os.path.join(pos_train_data_path, filename), 'r', encoding="utf8") as f:
-                st_ind = list(filename).index("_")
-                nd_ind = list(filename).index(".")
-                x_train.append(f.read())
-                y_train.append(int(filename[st_ind + 1:nd_ind]) / 10)
+    x_test, y_test = read_data(pos_test_data_path)
+    x_test, y_test = read_data(neg_test_data_path)
 
     print("Dataset successfully imported...!!!")
     return x_train, y_train, x_test, y_test
