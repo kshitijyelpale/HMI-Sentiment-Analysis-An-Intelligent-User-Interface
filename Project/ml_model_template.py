@@ -66,13 +66,12 @@ class MLModelTemplate(ABC):
     def execute(self):
         from datapreprocessing import import_data, tfidfvectorizer
 
-        x_train, y_train, x_test, y_test = import_data(True)
+        x_train, y_train, x_test, y_test = import_data(False)
         
         x_train, x_test = self.pre_process_data(x_train, x_test)
         
         vec, x_train, x_test = tfidfvectorizer(x_train, x_test)
-        print(x_train[:2], y_train[:2])
-        print(type(x_train), type(y_train))
+        
         self.save_model(vec, 'vec')
 
         model = self.create_model()
@@ -87,8 +86,8 @@ class MLModelTemplate(ABC):
 
         y_pred = self.predict(model, x_test)
 
-        cm = self.get_confusion_matrix(y_test, y_pred)
+        # cm = self.get_confusion_matrix(y_test, y_pred)
 
-        print(cm)
+        # print(cm)
 
-        print("Accuracy is " + str(self.get_accuracy(y_test, y_pred) * 100))
+        # print("Accuracy is " + str(self.get_accuracy(y_test, y_pred) * 100))

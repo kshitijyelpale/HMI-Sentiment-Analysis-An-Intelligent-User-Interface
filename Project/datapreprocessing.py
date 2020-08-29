@@ -24,25 +24,20 @@ def import_data(need_probability_of_review=True):
     neg_train_data_path = train_data_path + "Negative"
 
     if need_probability_of_review is True:
-        x_train, y_train = read_data(pos_train_data_path)
+        x_train, y_train = read_data(pos_train_data_path, [], [])
         x_train, y_train = read_data(neg_train_data_path, x_train, y_train)
-
-        x_test, y_test = read_data(pos_test_data_path)
+        
+        x_test, y_test = read_data(pos_test_data_path, [], [])
         x_test, y_test = read_data(neg_test_data_path, x_test, y_test)
-
-        #y_train = np.asarray(y_train, dtype=float)
-        #y_test = np.asarray(y_test, dtype=float)
     else:
-        x_train, _ = read_data(pos_train_data_path)
+        x_train, _ = read_data(pos_train_data_path, [], [])
         x_train, _ = read_data(neg_train_data_path, x_train, y_train)
 
-        x_test, _ = read_data(pos_test_data_path)
+        x_test, _ = read_data(pos_test_data_path, [], [])
         x_test, _ = read_data(neg_test_data_path, x_test, y_test)
 
         y_train = [0] * 22750 + [1] * 22750
         y_test = [0] * 2250 + [1] * 2250
-        
-    print(type(x_train), type(x_test), type(y_train), type(y_test))
 
     print("Dataset successfully imported...!!!")
     return x_train, y_train, x_test, y_test
@@ -110,8 +105,6 @@ def tfidfvectorizer(data, test_data=[]):
     data = vectorizer.fit_transform(data)
     if test_data:
         test_data = vectorizer.transform(test_data)
-        print("data", data[:2])
-        print("test_data", test_data[:2])
         return vectorizer, data, test_data
 
     return vectorizer, data

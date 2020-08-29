@@ -9,9 +9,10 @@ def read_data(path, data=[], prob=[]):
         with open(os.path.join(path, filename), 'r', encoding="utf8") as f:
             st_ind = list(filename).index("_")
             nd_ind = list(filename).index(".")
-            if filename[nd_ind - 1] != ')':
-                data.append(f.read())
-                prob.append(int(filename[st_ind + 1:nd_ind]) / 10)
+            # TODO: Use regex instead of substring. Try this one "_(\d+)[.\s]*"
+            #if filename[nd_ind - 1] != ')':
+            data.append(f.read())
+                #prob.append(int(filename[st_ind + 1:nd_ind]) / 10)
 
     return data, prob
 
