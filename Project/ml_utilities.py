@@ -4,9 +4,7 @@ from tensorflow.keras.models import model_from_json
 
 
 # define class
-def read_data(path):
-    data = []
-    prob = []
+def read_data(path, data = [], prob = []):
     for filename in os.listdir(path):
             with open(os.path.join(path, filename), 'r', encoding="utf8") as f:
                 st_ind = list(filename).index("_")

@@ -23,10 +23,10 @@ def import_data():
     neg_train_data_path = train_data_path + "Negative"
 
     x_train, y_train = read_data(pos_train_data_path)
-    x_train, y_train = read_data(neg_train_data_path)
+    x_train, y_train = read_data(neg_train_data_path, x_train, y_train)
 
     x_test, y_test = read_data(pos_test_data_path)
-    x_test, y_test = read_data(neg_test_data_path)
+    x_test, y_test = read_data(neg_test_data_path, x_test, y_test)
 
     print("Dataset successfully imported...!!!")
     return x_train, y_train, x_test, y_test
