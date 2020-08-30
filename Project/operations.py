@@ -1,5 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import pandas as pd
+import os
+from models import db
+path = os.path.dirname(__file__)
 
 db = SQLAlchemy()
 from models import *
@@ -110,6 +114,22 @@ def get_all_reviews():
     return review_dict
 
 
+def export_csv():
+    rev_dct = get_all_reviews()
+    df = pd.DataFrame()
+    df['id'] = list(rev_dct.keys())
+    df['review'] = list(rev_dct.values())
+    df.to_csv(path+'/reviews.csv')
+
+def read_csv(lst):
+    dataset = pd.read_csv(path+'/reviews.csv')
+    # id_lst = dataset.iloc[[i for i in lst], 1].values
+    rev_lst = dataset.iloc[[i-1 for i in lst], 2].values
+    dct = {}
+    for i in range(len(lst)):
+        dct[lst[i]] = rev_lst[i]
+    return dct
+
 def get_lstm_predictions():
     lstm_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))
     lstm_values = [val for (val,) in lstm_values]
@@ -139,7 +159,8 @@ def main():
     }
     # update_user_ratings(test_dict)
     # print(get_reviews([3,4]))
-    print(get_all_reviews())
+    print(read_csv([222, 1]))
+    print(get_reviews([222, 1]))
 
 
 if __name__ == "__main__":
