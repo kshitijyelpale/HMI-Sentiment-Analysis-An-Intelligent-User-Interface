@@ -26,3 +26,19 @@ classifier = MultinomialNB()
 classifier.fit(X, y)
 
 print(type(X),type(y))
+
+review_ids = []
+for i in range(1,6):
+    review_ids.append(randint(1,4501))
+    
+print(review_ids)
+from operations import *
+with app.app_context():
+    reviewss = get_reviews(review_ids)
+print(reviewss)
+
+
+from random import seed, randint
+seed(1)
+print(randint(1,100))
+seed(2)
