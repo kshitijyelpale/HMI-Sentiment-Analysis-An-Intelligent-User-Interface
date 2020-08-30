@@ -57,6 +57,9 @@ class BiLSTMModel(MLModelTemplate):
     def load_model(self):
         filename = os.path.dirname(__file__) + "/bi_lstm_weights.h5"
         return load_model(filename)
+    
+    def predict(self, model, data):
+        return model.predict(data)
 
     def execute(self, new_review):
         try:
@@ -80,8 +83,12 @@ class BiLSTMModel(MLModelTemplate):
             print("Unexpected error:", sys.exc_info()[0:2])
 
     def predict_reviews(self, raw_data):
+        #data = self.execute(raw_data)
+        #self.load_data()
+        #model = self.create_model()
+        #model = self.train_model(model)
+        #return model.predict(data)
+    
+        model = self.load_model()
         data = self.execute(raw_data)
-        self.load_data()
-        model = self.create_model()
-        model = self.train_model(model)
-        return model.predict(data)
+        return self.predict(model, data)
