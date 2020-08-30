@@ -6,7 +6,7 @@ from models import *
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db.init_app(app)
 
 
@@ -101,6 +101,15 @@ def get_reviews(review_ids):
     return review_dict
 
 
+def get_all_reviews():
+    reviews = Reviews.query.all()
+    review_dict = {}
+    for review in reviews:
+        review_dict[review.id] = review.review
+
+    return review_dict
+
+
 def get_lstm_predictions():
     lstm_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))
     lstm_values = [val for (val,) in lstm_values]
@@ -130,7 +139,7 @@ def main():
     }
     # update_user_ratings(test_dict)
     # print(get_reviews([3,4]))
-    print(get_lstm_predictions())
+    print(get_all_reviews())
 
 
 if __name__ == "__main__":
