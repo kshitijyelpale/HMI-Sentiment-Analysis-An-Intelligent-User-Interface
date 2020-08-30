@@ -69,7 +69,7 @@ class BiLSTMModel(MLModelTemplate):
             for doc in new_review:
                 review = []
                 for word in doc:
-                    if word not in word_indices:
+                    if word not in word_indices and 2 not in review:
                         review.append(2)
                     else:
                         review.append(word_indices[word] + 3)
@@ -83,12 +83,12 @@ class BiLSTMModel(MLModelTemplate):
             print("Unexpected error:", sys.exc_info()[0:2])
 
     def predict_reviews(self, raw_data):
-        #data = self.execute(raw_data)
-        #self.load_data()
-        #model = self.create_model()
-        #model = self.train_model(model)
-        #return model.predict(data)
-    
-        model = self.load_model()
         data = self.execute(raw_data)
-        return self.predict(model, data)
+        self.load_data()
+        model = self.create_model()
+        model = self.train_model(model)
+        return model.predict(data)
+    
+        '''model = self.load_model()
+        data = self.execute(raw_data)
+        return self.predict(model, data)'''
