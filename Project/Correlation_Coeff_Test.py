@@ -1,7 +1,8 @@
 # import libraries
 import sys
 from scipy.stats import pearsonr
-
+from scipy.stats import spearmanr
+import matplotlib.pyplot as plt
 sys.path.append('../')
 # from dbops.models import Reviews, db
 from operations import *
@@ -22,6 +23,9 @@ class CorrelationCoeff:
     def __init__(self):
         self.__rat_lst = [], []
         self.__lstm_rat, self.__bayes_rat = [], []
+        
+    def getter(self):
+        return self.__rat_lst,  self.__lstm_rat, self.__bayes_rat
 
     # Method for importing dataset
     def importData(self):
@@ -30,9 +34,14 @@ class CorrelationCoeff:
         self.__lstm_rat = get_lstm_predictions()
         self.__bayes_rat = get_bayes_predictions()
 
-    def performCorrelation(self):
+    def perform_correlation(self):
         lstm_r, _ = pearsonr(self.__rat_lst, self.__lstm_rat)
         bayes_r, _ = pearsonr(self.__rat_lst, self.__bayes_rat)
+        return lstm_r, bayes_r
+    
+    def spearman_correlation(self):
+        lstm_r, _ = spearmanr(self.__rat_lst, self.__lstm_rat)
+        bayes_r, _ = spearmanr(self.__rat_lst, self.__bayes_rat)
         return lstm_r, bayes_r
 
     def printAll(self):
@@ -44,7 +53,13 @@ def main():
     r_obj = CorrelationCoeff()
     r_obj.importData()
     r_obj.printAll()
-    print(r_obj.performCorrelation())
+    print("Pearson Correlation", r_obj.perform_correlation())
+    print("Spearman Correlation", r_obj.spearman_correlation())
+    
+    rat, lstm_val, bayes_val = r_obj.getter()
+    #plt.plot(lstm_val)
+    #plt.plot(bayes_val)
+    #plt.plot(rat)
 
 
 if __name__ == "__main__":

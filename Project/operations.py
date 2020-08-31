@@ -9,7 +9,7 @@ db = SQLAlchemy()
 from models import *
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///db.sentiment_analysis1'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db.init_app(app)
 
@@ -129,6 +129,14 @@ def read_csv(lst):
     for i in range(len(lst)):
         dct[lst[i]] = rev_lst[i]
     return dct
+
+
+def store_user_rating_to_csv(user_ratings):
+    df = pd.DataFrame()
+    df['review_id'] = list(user_ratings.keys())
+    df['user_ratings'] = list(user_ratings.values())
+    df.to_csv(path+'/user_ratings', mode='a', header=False)
+    
 
 def get_lstm_predictions():
     lstm_values = list(Reviews.query.with_entities(Reviews.lstm_prediction))

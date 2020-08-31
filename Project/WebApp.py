@@ -1,6 +1,5 @@
 import sys
-from random import seed
-from random import randint
+from random import seed, randint
 sys.path.append(".")
 from operations import *
 import streamlit as st
@@ -13,7 +12,7 @@ app = Flask(__name__)
 db.init_app(app)
 
 app = Flask(__name__)
-    
+
 seed(1)
 
 email = st.text_input("Enter your email here")
@@ -39,6 +38,5 @@ submit = st.button("Submit")
 if submit:
     st.write(user_rating)
     with app.app_context():
-        update_user_ratings(user_rating)
-    
+        store_user_rating_to_csv(user_rating)
 

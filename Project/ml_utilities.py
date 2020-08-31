@@ -14,7 +14,6 @@ def read_data(path, data=[], prob=[]):
                 nd_ind -= 4 
             data.append(f.read())
             prob.append(int(filename[st_ind + 1:nd_ind]) / 10)
-        break
 
     return data, prob
 
