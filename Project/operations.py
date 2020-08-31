@@ -80,18 +80,24 @@ def update_user_details(user_id):
 
 def update_user_ratings(user_values):
     for review_id in user_values:
-        review = Reviews.query.get(review_id)
-        print(review)
+        review = Reviews.query.get(int(review_id))
         if review is not None:
             lstm_deviation = abs(review.lstm_prediction - review.actual_sentiment)
             bayes_deviation = abs(review.bayes_prediction - review.actual_sentiment)
             user_sentiment = user_values[review_id]
-            print(lstm_deviation)
             r = Ratings(lstm_deviation=lstm_deviation, bayes_deviation=bayes_deviation, user_sentiment=user_sentiment,
-                        review_id=review_id)
+                        review_id=int(review_id))
             db.session.add(r)
     db.session.commit()
-
+    
+def get_deviations():
+    lstm_dev, bayes_dev = [], []
+    ratings = Ratings.query.all()
+    for rating in ratings:
+        lstm_dev.append(rating.lstm_deviation)
+        bayes_dev.append(rating.bayes_deviation)
+    
+    return lstm_dev, bayes_dev
 
 ''' api to get the dictionery of reviews '''
 
@@ -132,10 +138,16 @@ def read_csv(lst):
 
 def read_user_ratings():
     dataset = pd.read_csv(path+'/user_ratings.csv')
-    rat_lst = dataset.iloc[:, 1].values
-    dct = {}
+    dct, dct1 = {}, {}
     for i in range(len(dataset.iloc[:, 0].values)):
-        dct.update({dataset.iloc[:, 0].values[i]:dataset.iloc[:, 1].values[i]})
+        if dataset.iloc[:, 0].values[i] not in dct:
+            dct.update({dataset.iloc[:, 0].values[i]:dataset.iloc[:, 1].values[i]})
+        else:
+            dct1.update({dataset.iloc[:, 0].values[i]:dataset.iloc[:, 1].values[i]})
+    
+    #print(dct,dct1)
+    update_user_ratings(dct)
+    update_user_ratings(dct1)
     return dct
 
 def store_user_rating_to_csv(user_ratings):
@@ -168,8 +180,7 @@ def get_actual_sentiments():
 
 def main():
     # print(get_review_details("u6@gmail.com",["R5","R6"]))
-    dct = read_user_ratings()
-    update_user_ratings(dct)
+    get_deviations()
     # print(get_reviews([3,4]))
     #print()
     

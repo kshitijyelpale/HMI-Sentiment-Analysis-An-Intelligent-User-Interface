@@ -46,13 +46,50 @@ class CorrelationCoeff:
 
     def printAll(self):
         print(len(self.__lstm_rat), len(self.__bayes_rat))
+        
+    def ttest(self):
+        from scipy import stats
+        a,b = get_deviations()
+        t, p = stats.ttest_ind(a,b)
+        
+        print(t, p)
+        
+        import matplotlib.pyplot as plt
+        fig1, ax1 = plt.subplots()
+        #ax1.set_title('Lstm Deviations')
+        #ax1.boxplot(a)
+        
+        #fig1, ax1 = plt.subplots()
+        #ax1.set_title('bayes Deviations')
+        #ax1.boxplot(b)
+        
+        import matplotlib.pyplot as plt
+        import numpy as np
+        import scipy.stats as stats
+        import math
+        import statistics as sta
+        
+        lstm_mu = sta.mean(a)
+        bayes_mu = sta.mean(b)
+        
+        lstm_sd = sta.stdev(a)
+        bayes_sd = sta.stdev(b)
+        
+        
+        plt.plot(a)
+        plt.xlabel("No. of observations")
+        plt.ylabel("Deviations")
+        
+        plt.plot(b)
+        plt.xlabel("No. of observations")
+        plt.ylabel("Deviations")
 
 
 def main():
-    print("Loading Data... Please wait!")
+    # print("Loading Data... Please wait!")
     r_obj = CorrelationCoeff()
     r_obj.importData()
-    r_obj.printAll()
+    #r_obj.printAll()
     print("Pearson Correlation", r_obj.perform_correlation())
     print("Spearman Correlation", r_obj.spearman_correlation())
     
@@ -60,6 +97,9 @@ def main():
     #plt.plot(lstm_val)
     #plt.plot(bayes_val)
     #plt.plot(rat)
+    
+    r_obj.ttest()
+
 
 
 if __name__ == "__main__":
