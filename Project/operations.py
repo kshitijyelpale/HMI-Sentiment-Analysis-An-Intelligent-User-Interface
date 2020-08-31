@@ -130,6 +130,13 @@ def read_csv(lst):
         dct[lst[i]] = rev_lst[i]
     return dct
 
+def read_user_ratings():
+    dataset = pd.read_csv(path+'/user_ratings.csv')
+    rat_lst = dataset.iloc[:, 1].values
+    dct = {}
+    for i in range(len(dataset.iloc[:, 0].values)):
+        dct.update({dataset.iloc[:, 0].values[i]:dataset.iloc[:, 1].values[i]})
+    return dct
 
 def store_user_rating_to_csv(user_ratings):
     df = pd.DataFrame()
@@ -161,14 +168,11 @@ def get_actual_sentiments():
 
 def main():
     # print(get_review_details("u6@gmail.com",["R5","R6"]))
-    test_dict = {
-        3: 0.65,
-        4: 0.70
-    }
-    # update_user_ratings(test_dict)
+    dct = read_user_ratings()
+    update_user_ratings(dct)
     # print(get_reviews([3,4]))
-    print(read_csv([222, 1]))
-    print(get_reviews([222, 1]))
+    #print()
+    
 
 
 if __name__ == "__main__":
