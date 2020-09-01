@@ -119,6 +119,11 @@ def get_all_reviews():
 
     return review_dict
 
+def get_all_user_ratings():
+    ratings = Ratings.query.all()
+    # ratings = db.session.query(Ratings,Reviews).filter(Ratings.review_id == Reviews.id).all()
+
+    return ratings
 
 def export_csv():
     rev_dct = get_all_reviews()
@@ -126,6 +131,29 @@ def export_csv():
     df['id'] = list(rev_dct.keys())
     df['review'] = list(rev_dct.values())
     df.to_csv(path+'/reviews.csv')
+
+def export_user_ratings_csv():
+    ratings = get_all_user_ratings()
+    review_dict = get_all_reviews()
+    df = pd.DataFrame()
+    id, lstm_deviation, bayes_deviation, user_sentiment, review_id, review = ([] for i in range(6))
+    for rating in ratings:
+        id.append(rating.id)
+        lstm_deviation.append(rating.lstm_deviation)
+        bayes_deviation.append(rating.bayes_deviation)
+        user_sentiment.append(rating.user_sentiment)
+        review_id.append(rating.review_id)
+        review.append(review_dict[rating.review_id])
+
+    df['id'] = id
+    df['lstm_deviation'] = lstm_deviation
+    df['bayes_deviation'] = bayes_deviation
+    df['user_sentiment'] = user_sentiment
+    df['review_id'] = review_id
+    df['review'] = review
+
+    print(df)
+    df.to_csv(path+'/user_data.csv')
 
 def read_csv(lst):
     dataset = pd.read_csv(path+'/reviews.csv')
@@ -180,9 +208,10 @@ def get_actual_sentiments():
 
 def main():
     # print(get_review_details("u6@gmail.com",["R5","R6"]))
-    get_deviations()
+    # get_deviations()
     # print(get_reviews([3,4]))
     #print()
+    export_user_ratings_csv()
     
 
 
