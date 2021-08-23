@@ -8,11 +8,11 @@ Saﬁr Mohammad Shaikh, Kshitij Yelpale, Shubham Girdhar, Gaurav Kapadiya, Prana
 This project was carried out under a module, Human Machine/Computer Interaction (HMI/HCI), in the Master's Course, High Integrity Systems at Frankfurt University of Applied Sciences. Please find the project report [here.](Documentation/LSTM_Bayes_Sentiment_Analysis/Scientific_Report.pdf)
 
 ## Technologies Used:
-Language: Python
-Libraries: NLTK, Keras, Pandas, Scikit-Learn
-FrontEnd: SQLAlchemy
-BackEnd: Flask
-Documentation: Latex
+* Language: Python
+* Libraries: NLTK, Keras, Pandas, Scikit-Learn
+* FrontEnd: SQLAlchemy
+* BackEnd: Flask
+* Documentation: Latex
 
 ## How to Run?
 1. Clone the Repository and move to Project directory:
