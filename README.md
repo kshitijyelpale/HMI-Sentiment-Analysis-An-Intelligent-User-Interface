@@ -1,11 +1,10 @@
 # HMI-Sentiment-Analysis-Intelligent-User-Interface
 
+## Project Details:
+This project was carried out under a module, Human Machine/Computer Interaction (HMI/HCI), in the Master's Course, High Integrity Systems at Frankfurt University of Applied Sciences. Please find the project report [here.](Documentation/LSTM_Bayes_Sentiment_Analysis/Scientific_Report.pdf)
 
 ## Project Team Members: 
 Saﬁr Mohammad Shaikh, Kshitij Yelpale, Shubham Girdhar, Gaurav Kapadiya, Pranay Raman
-
-## Project Details:
-This project was carried out under a module, Human Machine/Computer Interaction (HMI/HCI), in the Master's Course, High Integrity Systems at Frankfurt University of Applied Sciences. Please find the project report [here.](Documentation/LSTM_Bayes_Sentiment_Analysis/Scientific_Report.pdf)
 
 ## Technologies Used:
 * Language: Python
