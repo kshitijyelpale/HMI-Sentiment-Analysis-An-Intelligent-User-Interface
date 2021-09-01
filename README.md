@@ -9,8 +9,8 @@ Saﬁr Mohammad Shaikh, Kshitij Yelpale, Shubham Girdhar, Gaurav Kapadiya, Prana
 ## Technologies Used:
 * Language: Python
 * Libraries: NLTK, Keras, Pandas, Scikit-Learn
-* FrontEnd: SQLAlchemy
-* BackEnd: Flask
+* FrontEnd: Python library - Streamlit. PLanning to move application as WebApp with REACT.
+* BackEnd: Flask, SQLAlchemy
 * Documentation: Latex
 
 ## How to Run?
