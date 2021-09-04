@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginPage = () => {
   return (
