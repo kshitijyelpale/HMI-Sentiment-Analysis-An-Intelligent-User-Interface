@@ -240,7 +240,7 @@ tqdm==4.36.1
 traitlets==4.3.3
 tzlocal==2.1
 unicodecsv==0.14.1
-urllib3==1.24.2
+urllib3==1.26.5
 validators==0.15.0
 virtualenv==20.0.23
 virtualenv-clone==0.5.4
